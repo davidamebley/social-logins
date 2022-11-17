@@ -1,20 +1,31 @@
-const cookieSession = require('cookie-session');
+const dotenv = require('dotenv').config();
+// const cookieSession = require('cookie-session');
 const express = require('express');
 const cors = require('cors');
-const passportSetup = require('./passport');
+const passportSetup = require('./services/passport');
 const passport = require('passport');
-const dotenv = require('dotenv').config();
+const authRoute = require('./routes/auth');
 
 const app = express()
 
 // Use browser sessions
-app.use(
+/* app.use(
     cookieSession({
-        name: process.env.APP_SESSION,
-        keys: process.env.APP_SESSION_KEYS,
+        name: process.env.APP_SESSION,    //process.env.APP_SESSION
+        keys: process.env.APP_SESSION_KEYS,   //process.env.APP_SESSION_KEYS
         maxAge: 24 * 60 * 60 * 100      // Session valid for 1 day in msecs
     })
-);
+); */
+// Using express-session instead of cookieSession which didnt work for us initially
+const session = require('express-session');
+app.use(session({
+    secret: 'somethingsecretgoeshere',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+ }));
+
+ 
 
 // Initialize PassportJS library
 app.use(passport.initialize());
@@ -23,11 +34,14 @@ app.use(passport.session());
 // Allow sending Sessions through our client/server requests
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: "http://localhost:3000",    //Our requests will come from this client
         methods: "GET, POST, PUT, DELETE",
         credentials: true,
     })
 );
+
+// Call Our Auth Route
+app.use('/auth', authRoute);
 
 // Start Server
 app.listen('5000', () => {

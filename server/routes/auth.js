@@ -5,12 +5,11 @@ const passport = require('passport');
 router.get('/login/success', (req, res) => {
     // If User authenticated
     if (req.user) {
-        res.status(200)     //Auth Success
-        res.json({
+        res.status(200).json({  //200 Auth success
             success: true,
             message: "User authenticated successfully",
             user: req.user,
-            cookies: req.cookies,
+            // cookies: req.cookies,
         });
     }
 });
@@ -25,12 +24,16 @@ router.get('/login/failed', (req, res) => {
 
 router.get('/logout', (req, res) => {
     req.logout();
-    res.redirect(process.env.CLIENT_URL);
+    res.redirect('http://localhost:3000/');   //process.env.CLIENT_URL
 });
 
-router.get('/google', passport.authenticate('google', {scope: ['profile']}));
+router.get('/google', (request, response, next) => {
+    passport.authenticate('google', {scope: ['profile', 'email']})(request, response, next);
+});
 
 router.get('/google/callback', passport.authenticate('google', {
-    successRedirect: process.env.CLIENT_URL,
+    successRedirect: 'http://localhost:3000/',
     failureRedirect: '/login/failed',
 }));
+
+module.exports = router
