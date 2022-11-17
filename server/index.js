@@ -1,6 +1,7 @@
 const cookieSession = require('cookie-session');
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
+
 const passport = require('passport');
 const dotenv = require('dotenv').config()
 const app = express()
