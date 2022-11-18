@@ -4,9 +4,15 @@ import Facebook from '../img/facebook.png'
 import Github from '../img/github.png'
 
 const Login = () => {
+    // Google
     const google = () =>{
         // Perform a request from Server
         window.open("http://localhost:5000/auth/google", "_self");  //In the main Server Indexjs file, call the 'auth' router and access its 'google' route
+    }
+    // GitHub
+    const github = () =>{
+        // Perform a request from Server
+        window.open("http://localhost:5000/auth/github", "_self");  //In the main Server Indexjs file, call the 'auth' router and access its 'google' route
     }
   return (
     <div className='login'>
@@ -21,7 +27,7 @@ const Login = () => {
                     <img src={Facebook} alt="" className="icon" />
                     Facebook
                 </div>
-                <div className="login-button github">
+                <div className="login-button github" onClick={github}>
                     <img src={Github} alt="" className="icon" />
                     GitHub
                 </div>
