@@ -24,7 +24,7 @@ router.get('/login/failed', (req, res) => {
 
 router.get('/logout', (req, res) => {
     req.logout();
-    res.redirect('http://localhost:3000/');   //process.env.CLIENT_URL
+    res.redirect(process.env.CLIENT_URL);   //http://localhost:3000/
 });
 
 router.get('/google', (request, response, next) => {
@@ -32,7 +32,7 @@ router.get('/google', (request, response, next) => {
 });
 
 router.get('/google/callback', passport.authenticate('google', {
-    successRedirect: 'http://localhost:3000/',
+    successRedirect: process.env.CLIENT_URL,
     failureRedirect: '/login/failed',
 }));
 

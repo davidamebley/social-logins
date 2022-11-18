@@ -9,9 +9,6 @@ passport.use(new GoogleStrategy({
     // User.findOrCreate({ googleId: profile.id }, function (err, user) {
     //   return cb(err, user);
     // });      // We're not going to use a db to authenticate user
-    console.log(accessToken);
-    console.log(refreshToken);
-    console.log(profile);
     done(null, profile);    // when everything is done, we return no error + user profile
 
     // For MongoDb

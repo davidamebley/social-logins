@@ -19,10 +19,14 @@ const app = express()
 // Using express-session instead of cookieSession which didnt work for us initially
 const session = require('express-session');
 app.use(session({
-    secret: 'somethingsecretgoeshere',
+    secret: process.env.SESSION_SECRETS[0],
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { 
+        secure: false,
+        maxAge: 24 * 60 * 60 * 100 ,
+        sameSite: false,
+    }
  }));
 
  
@@ -40,7 +44,7 @@ app.use(
     })
 );
 
-// Call Our Auth Route
+// Call Our Auth Route to use its methods
 app.use('/auth', authRoute);
 
 // Start Server

@@ -38,9 +38,6 @@ const App = () => {
     // Now, we can call our getUser function, which gets the authenticated user and sets in the user variable
     getUser();
   }, []);
-  // Checking our user
-  console.log('Current user ',user);
-  // console.log('response ',response);
 
   return (
     <BrowserRouter>
