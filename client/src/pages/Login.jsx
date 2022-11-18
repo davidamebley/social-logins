@@ -14,6 +14,12 @@ const Login = () => {
         // Perform a request from Server
         window.open("http://localhost:5000/auth/github", "_self");  //In the main Server Indexjs file, call the 'auth' router and access its 'google' route
     }
+
+    // Facebook
+    const facebook = () =>{
+        // Perform a request from Server
+        window.open("http://localhost:5000/auth/facebook", "_self");  //In the main Server Indexjs file, call the 'auth' router and access its 'google' route
+    }
   return (
     <div className='login'>
         <h1 className="login-title">Choose a Login Method</h1>
@@ -23,7 +29,7 @@ const Login = () => {
                     <img src={Google} alt="" className="icon" />
                     Google
                 </div>
-                <div className="login-button facebook">
+                <div className="login-button facebook" onClick={facebook}>
                     <img src={Facebook} alt="" className="icon" />
                     Facebook
                 </div>

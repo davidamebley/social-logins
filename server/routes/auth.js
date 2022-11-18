@@ -46,4 +46,14 @@ router.get('/github/callback', passport.authenticate('github', {
     failureRedirect: '/login/failed',
 }));
 
+// FACEBOOK
+router.get('/facebook', (request, response, next) => {
+    passport.authenticate('facebook', {scope: ['profile', 'email']})(request, response, next);
+});
+
+router.get('/facebook/callback', passport.authenticate('facebook', {
+    successRedirect: process.env.CLIENT_URL,
+    failureRedirect: '/login/failed',
+}));
+
 module.exports = router
